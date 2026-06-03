@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>犬・猫の歯周病研究</title>
+  <style>
+    :root {
+      --ink: #20231f;
+      --muted: #62685f;
+      --line: #d8ddd2;
+      --paper: #f7f8f4;
+      --white: #ffffff;
+      --accent: #2f6f5f;
+      --accent-soft: #e4f0eb;
+      --warm: #f0e8d8;
+      --figure: #eef3f1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", Arial, sans-serif;
+      line-height: 1.85;
+      letter-spacing: 0;
+    }
+
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+    .hero {
+      min-height: 68svh;
+      display: grid;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(247, 248, 244, 0.96), rgba(247, 248, 244, 0.78) 48%, rgba(247, 248, 244, 0.18)),
+        radial-gradient(circle at 78% 35%, rgba(47, 111, 95, 0.16), transparent 30%),
+        linear-gradient(135deg, #fbfcf8, #e3ece7 48%, #d4dfd7);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .hero-inner,
+    .section-inner {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
+      gap: clamp(28px, 6vw, 72px);
+      align-items: center;
+      padding: 64px 0;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin: 0 0 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.25rem, 5vw, 4.9rem);
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 26px 0 0;
+      max-width: 670px;
+      color: #363b35;
+      font-size: clamp(1.02rem, 1.8vw, 1.22rem);
+    }
+
+    .visual-panel {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+    }
+
+    .tooth-visual {
+      width: min(100%, 420px);
+      aspect-ratio: 1;
+      filter: drop-shadow(0 24px 42px rgba(38, 51, 42, 0.18));
+      animation: rise 900ms ease-out both;
+    }
+
+    .hero-photo-frame {
+      width: min(100%, 420px);
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(47, 111, 95, 0.2);
+      background: #fff;
+      box-shadow: 0 24px 42px rgba(38, 51, 42, 0.18);
+      animation: rise 900ms ease-out both;
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 52% 30%;
+      display: block;
+    }
+
+    .marker {
+      position: absolute;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(47, 111, 95, 0.22);
+      border-radius: 999px;
+      color: #314239;
+      font-weight: 700;
+      font-size: 0.88rem;
+      box-shadow: 0 12px 30px rgba(39, 56, 48, 0.11);
+    }
+
+    .marker.one { top: 52px; left: 10px; }
+    .marker.two { right: 0; top: 170px; }
+    .marker.three { left: 32px; bottom: 58px; }
+
+    section { padding: clamp(54px, 8vw, 94px) 0; }
+
+    .section-title {
+      margin: 0 0 22px;
+      font-size: clamp(1.75rem, 3vw, 2.65rem);
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      max-width: 880px;
+      color: #30362f;
+      font-size: 1.03rem;
+    }
+
+    .theme-band {
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.94fr) minmax(320px, 1.06fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: start;
+    }
+
+    .sticky-note {
+      position: sticky;
+      top: 24px;
+      padding-top: 6px;
+    }
+
+    .theme-label {
+      display: inline-block;
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-weight: 800;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    .topic + .topic {
+      margin-top: 46px;
+      padding-top: 46px;
+      border-top: 1px solid var(--line);
+    }
+
+    .topic h3 {
+      margin: 0 0 14px;
+      font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+      line-height: 1.35;
+    }
+
+    .topic p { margin: 0 0 18px; color: #353b34; }
+
+    .material-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      padding: 0;
+      margin: 24px 0 0;
+      list-style: none;
+    }
+
+    .material-list li {
+      background: var(--accent-soft);
+      color: #245446;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .flow-illustration {
+      margin: 28px 0 0;
+      padding: 26px;
+      background: linear-gradient(135deg, #ffffff, #edf5f0);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .flow-illustration svg { width: 100%; height: auto; display: block; }
+
+    .figure-section {
+      background: #eef2ec;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .figure-box {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .figure-placeholder {
+      min-height: 290px;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      background: var(--figure);
+      color: #304238;
+      text-align: center;
+    }
+
+    .figure-image-wrap {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      background: var(--figure);
+    }
+
+    .figure-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #d5ddd7;
+    }
+
+    .figure-placeholder strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .figure-caption {
+      padding: 18px 20px 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .paper-list {
+      display: grid;
+      gap: 22px;
+      margin-top: 32px;
+    }
+
+    .paper {
+      padding: 0 0 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .paper:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .paper h3 {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 1.12rem;
+    }
+
+    .citation {
+      margin: 0 0 10px;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    .paper p { margin: 0 0 8px; color: #384037; }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      margin-top: 10px;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .note {
+      margin-top: 34px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--accent);
+      background: var(--warm);
+      color: #403b32;
+      font-size: 0.95rem;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 820px) {
+      .hero-grid,
+      .theme-grid,
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-panel { min-height: 320px; }
+      .marker { position: static; margin: 8px 6px 0 0; display: inline-block; }
+      .sticky-note { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner hero-grid">
+      <div>
+        <p class="eyebrow">研究内容紹介</p>
+        <h1>犬・猫の歯周病研究</h1>
+        <p class="lead">歯周病菌、口臭、歯ぐきの炎症、歯の喪失リスクに着目し、伴侶動物の口腔環境を守るための研究を進めています。</p>
+      </div>
+      <div class="visual-panel" aria-label="猫の歯の写真">
+        <div class="hero-photo-frame">
+          <img src="periodontal_hero_dog_cat.png" alt="犬と猫の歯周病研究を表す説明画像">
+        </div>
+        <span class="marker one">歯周病菌</span>
+        <span class="marker two">口臭・炎症</span>
+        <span class="marker three">予防とケア</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="section-inner">
+        <h2 class="section-title">研究内容の概要</h2>
+        <div class="section-copy">
+          <p>犬や猫の歯周病は、口臭や歯ぐきの炎症だけでなく、進行すると歯の喪失や食事のしにくさにもつながる、身近で重要な病気です。本研究室では、犬・猫の歯周病菌である <em>Porphyromonas gulae</em> などに着目し、歯周病の予防、口臭の軽減、歯肉炎の改善につながる研究を行っています。</p>
+          <p>研究は大きく、日常的な口腔ケアに応用しやすい素材や候補物質を評価する研究と、犬の歯周病がどのように進行するのかを調べる疫学研究の2つに分けられます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="theme-band">
+      <div class="section-inner theme-grid">
+        <div class="sticky-note">
+          <p class="theme-label">Theme 01</p>
+          <h2 class="section-title">犬・猫の歯周病に対する予防・ケア方法の研究</h2>
+          <p class="section-copy">家庭や動物医療の現場で活用しやすい、負担の少ない口腔ケアを目指しています。</p>
+        </div>
+        <div class="topic">
+          <p>特に犬や猫の口腔内では、<em>Porphyromonas gulae</em> などの歯周病菌が関わることが知られており、歯周病菌の増殖、プラークやバイオフィルムの形成、口臭原因物質の産生、歯ぐきの炎症を抑えることが、健康な口腔環境を守るうえで大切です。</p>
+          <p>本研究室では、犬・猫の歯周病を対象に、歯周病菌の増殖、バイオフィルム形成、口臭原因物質である硫化水素やメチルメルカプタンの産生、炎症性サイトカインの産生などを指標として、日常的な口腔ケアに応用しやすい予防・改善方法の開発に取り組んでいます。</p>
+          <p>これまでに、カテキン、柿タンニン、明日葉抽出物、マスティハ、サイクロデキストラン、インターフェロンαなど、さまざまな素材や候補物質について研究を進めてきました。これらの研究では、歯周病菌に対する直接的な作用だけでなく、口臭の軽減、歯肉炎の改善、バイオフィルム形成の抑制、炎症反応の調節といった複数の観点から評価を行っています。</p>
+          <p>犬や猫の歯周病は、毎日のケアと早期の対応がとても重要です。一方で、動物の歯科処置では全身麻酔が必要となる場合もあり、家庭で無理なく続けられるケアや、動物への負担が少ない方法の開発が求められています。本研究室では、動物医療の現場や家庭で活用しやすい口腔ケアの実現を目指し、科学的根拠に基づいた研究を続けています。</p>
+          <ul class="material-list" aria-label="研究対象素材">
+            <li>カテキン</li>
+            <li>柿タンニン</li>
+            <li>明日葉抽出物</li>
+            <li>マスティハ</li>
+            <li>サイクロデキストラン</li>
+            <li>インターフェロンα</li>
+          </ul>
+          <div class="flow-illustration" aria-label="歯周病ケア研究の流れ">
+            <svg viewBox="0 0 900 260" role="img" aria-labelledby="flow-title">
+              <title id="flow-title">歯周病菌から口腔ケア研究までの流れ</title>
+              <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#2f6f5f"/>
+                </marker>
+              </defs>
+              <g font-family="Hiragino Sans, Yu Gothic, sans-serif" font-weight="700" fill="#23332c" text-anchor="middle">
+                <rect x="30" y="60" width="170" height="120" rx="8" fill="#ffffff" stroke="#cbd7cf"/>
+                <text x="115" y="108" font-size="20">歯周病菌</text>
+                <text x="115" y="140" font-size="15" fill="#657267">P. gulae など</text>
+                <rect x="260" y="60" width="170" height="120" rx="8" fill="#ffffff" stroke="#cbd7cf"/>
+                <text x="345" y="100" font-size="20">バイオフィルム</text>
+                <text x="345" y="134" font-size="15" fill="#657267">プラーク形成</text>
+                <rect x="490" y="60" width="170" height="120" rx="8" fill="#ffffff" stroke="#cbd7cf"/>
+                <text x="575" y="100" font-size="20">口臭・炎症</text>
+                <text x="575" y="134" font-size="15" fill="#657267">VSC / サイトカイン</text>
+                <rect x="700" y="45" width="170" height="150" rx="8" fill="#e4f0eb" stroke="#8db4a5"/>
+                <text x="785" y="98" font-size="20">予防・ケア</text>
+                <text x="785" y="130" font-size="15" fill="#42665a">素材・候補物質</text>
+                <text x="785" y="158" font-size="15" fill="#42665a">家庭と臨床へ</text>
+              </g>
+              <g stroke="#2f6f5f" stroke-width="4" marker-end="url(#arrow)">
+                <line x1="205" y1="120" x2="250" y2="120"/>
+                <line x1="435" y1="120" x2="480" y2="120"/>
+                <line x1="665" y1="120" x2="690" y2="120"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner theme-grid">
+        <div class="sticky-note">
+          <p class="theme-label">Theme 02</p>
+          <h2 class="section-title">犬歯周病の疫学研究</h2>
+          <p class="section-copy">リスクを早く見つけ、犬ごとの予防ケアにつなげるための基礎研究です。</p>
+        </div>
+        <div class="topic">
+          <p>犬の歯周病は、年齢とともに進行しやすく、特に小型犬で多くみられる口腔疾患です。歯ぐきの炎症や口臭だけでなく、進行すると歯の喪失にもつながるため、早い段階でリスクを把握し、予防的なケアにつなげることが重要です。</p>
+          <p>本研究室では、犬の歯周病がどのように進行するのか、また歯周病菌である <em>Porphyromonas gulae</em> の保有状況や遺伝子型が病態とどのように関係するのかを調べています。特に、<em>P. gulae</em> の線毛タンパク質に関わる <em>fimA</em> 遺伝子型に着目し、歯周病の重症度や残存歯数との関連を解析しています。</p>
+          <p>これまでの研究では、<em>P. gulae</em> 陽性の犬では歯周病のステージが年齢とともに進行しやすいこと、また <em>fimA</em> type C が優位な犬では歯周病の重症化や永久歯数の減少と関連する可能性が示されています。さらに、小型犬665頭を対象とした研究では、歯周病の重症度や <em>P. gulae</em> の FimA 遺伝子型分布が年齢とともに変化し、犬種によってもその傾向が異なる可能性が示されました。</p>
+          <p>これらの疫学研究は、犬の歯周病を「症状が出てから治療する」だけでなく、「リスクを早く見つけて予防する」ための基礎になります。将来的には、歯周病菌の検査や遺伝子型の情報を活用し、それぞれの犬に合った口腔ケアや予防指導につなげることを目指しています。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="figure-section">
+      <div class="section-inner">
+        <h2 class="section-title">代表的な研究データ</h2>
+        <p class="section-copy">関連論文で示された代表的な図です。歯周病菌、口臭、歯肉炎、歯周病の進行に関わる研究結果を示しています。</p>
+        <div class="figure-grid">
+          <figure class="figure-box">
+            <div class="figure-image-wrap">
+              <img src="https://ars.els-cdn.com/content/image/1-s2.0-S1567576924023270-gr6_lrg.jpg" alt="Ohira et al. 2025 Figure 6: dogs clinical periodontal outcomes after catechin-containing wet food treatment">
+              <img src="https://ars.els-cdn.com/content/image/1-s2.0-S1567576924023270-gr7_lrg.jpg" alt="Ohira et al. 2025 Figure 7: cats clinical periodontal outcomes after catechin-containing wet food treatment">
+            </div>
+            <figcaption class="figure-caption">出典: Ohira et al., <em>International Immunopharmacology</em>, 2025, Figure 6 and Figure 7. PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/39693953/">https://pubmed.ncbi.nlm.nih.gov/39693953/</a>. DOI: <a href="https://doi.org/10.1016/j.intimp.2024.113805">10.1016/j.intimp.2024.113805</a>. Open access under a Creative Commons license.</figcaption>
+          </figure>
+          <figure class="figure-box">
+            <div class="figure-image-wrap">
+              <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41598-025-27244-x/MediaObjects/41598_2025_27244_Fig5_HTML.png" alt="Kaneki et al. 2025 Figure 5: dogs clinical periodontal outcomes after mastic gel treatment">
+              <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41598-025-27244-x/MediaObjects/41598_2025_27244_Fig6_HTML.png" alt="Kaneki et al. 2025 Figure 6: cats clinical periodontal outcomes after mastic gel treatment">
+            </div>
+            <figcaption class="figure-caption">出典: Kaneki et al., <em>Scientific Reports</em>, 2025, Figure 5 and Figure 6. PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/41360842/">https://pubmed.ncbi.nlm.nih.gov/41360842/</a>. Licensed under CC BY 4.0.</figcaption>
+          </figure>
+          <figure class="figure-box">
+            <div class="figure-image-wrap">
+              <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41598-024-55842-8/MediaObjects/41598_2024_55842_Fig1_HTML.png" alt="Yasuda et al. 2024 Figure 1: periodontal disease stage by age in small dogs">
+            </div>
+            <figcaption class="figure-caption">出典: Yasuda et al., <em>Scientific Reports</em>, 2024, Figure 1. PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/38438471/">https://pubmed.ncbi.nlm.nih.gov/38438471/</a>. Licensed under CC BY 4.0.</figcaption>
+          </figure>
+          <figure class="figure-box">
+            <div class="figure-image-wrap">
+              <img src="https://pmc.ncbi.nlm.nih.gov/articles/PMC9939633/bin/fvets-10-1022838-g001.jpg" alt="Shirahata et al. 2023 Figure 1: relationship of Porphyromonas gulae fimA genotype with periodontal disease stage and permanent teeth">
+            </div>
+            <figcaption class="figure-caption">出典: Shirahata et al., <em>Frontiers in Veterinary Science</em>, 2023, Figure 1. PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/36814464/">https://pubmed.ncbi.nlm.nih.gov/36814464/</a>. Licensed under CC BY 4.0.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <h2 class="section-title">関連する掲載論文</h2>
+        <div class="paper-list">
+          <article class="paper">
+            <h3>カテキン</h3>
+            <p class="citation">Ohira C, Kaneki M, Shirao D, Kurauchi N, Fukuyama T. <strong>Oral treatment with catechin isolated from Japanese green tea significantly inhibits the growth of periodontal pathogen <em>Porphyromonas gulae</em> and ameliorates the gingivitis and halitosis caused by periodontal disease in cats and dogs.</strong> <em>International Immunopharmacology</em>. 2025;146:113805.</p>
+            <p>緑茶由来のカテキンに着目し、犬・猫の歯周病菌に対する作用を調べた研究です。歯周病菌の増殖、バイオフィルム形成、口臭原因物質の産生、炎症反応に関わる指標を評価しています。</p>
+            <div class="links"><a href="https://doi.org/10.1016/j.intimp.2024.113805">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/39693953/">PubMed</a></div>
+          </article>
+
+          <article class="paper">
+            <h3>柿タンニン</h3>
+            <p class="citation">Toyooka M, Ohira C, Kaneki M, Hachiya A, Fukuyama T. <strong>Intraoral treatment of persimmon tannin, a polyphenol extracted from persimmon, significantly ameliorates gingivitis, plaque and halitosis via direct influence on <em>Porphyromonas gulae</em>.</strong> <em>Journal of Pharmacological Sciences</em>. 2025;157(4):203-211.</p>
+            <p>柿に含まれるポリフェノールである柿タンニンに着目した研究です。歯周病菌への作用、バイオフィルム形成、口臭原因物質、炎症性サイトカイン産生を評価しています。</p>
+            <div class="links"><a href="https://doi.org/10.1016/j.jphs.2025.02.001">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/40058939/">PubMed</a></div>
+          </article>
+
+          <article class="paper">
+            <h3>明日葉抽出物</h3>
+            <p class="citation">Miyamoto T, Shirahata S, Komuro M, Kaneki M, Ohira C, Fukuyama T. <strong>Bactericidal and Anti-Inflammatory Effects of Ashitaba-Extract Ameliorate the Gingivitis and Halitosis in Dogs with <em>Porphyromonas gulae</em>-Infected Periodontal Disease.</strong> <em>Veterinary Sciences</em>. 2025;12(10):981.</p>
+            <p>明日葉抽出物を用い、犬の歯周病に対する抗菌作用、口臭軽減作用、炎症抑制作用を評価した研究です。</p>
+            <div class="links"><a href="https://doi.org/10.3390/vetsci12100981">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/41150121/">PubMed</a></div>
+          </article>
+
+          <article class="paper">
+            <h3>マスティハ</h3>
+            <p class="citation">Kaneki M, Komai N, Ohira C, Fukuyama T. <strong>Whole mastic resin ameliorates halitosis and gingivitis in dogs and cats infected with <em>Porphyromonas gulae</em>.</strong> <em>Scientific Reports</em>. 2025;15:43332.</p>
+            <p>マスティハ樹脂を用い、犬・猫の歯周病に対する作用を調べた研究です。口臭、歯肉炎、プラーク、歯周病菌活性に関わる指標を評価しています。</p>
+            <div class="links"><a href="https://doi.org/10.1038/s41598-025-27244-x">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/41360842/">PubMed</a></div>
+          </article>
+
+          <article class="paper">
+            <h3>サイクロデキストラン</h3>
+            <p class="citation">Toyooka M, Kaneki M, Ohira C, Nakamura Y, Yamamoto M, Fukuyama T. <strong>Cyclodextran prevents <em>Porphyromonas gulae</em> and <em>Porphyromonas gingivalis</em> induced halitosis and cytokine secretion via direct inhibition of biofilm formation.</strong> <em>Frontiers in Oral Health</em>. 2025;6:1713668.</p>
+            <p>サイクロデキストランが、歯周病菌のバイオフィルム形成、グルカン産生、口臭原因物質の産生、炎症性サイトカイン産生に及ぼす影響を調べた研究です。</p>
+            <div class="links"><a href="https://doi.org/10.3389/froh.2025.1713668">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/41487702/">PubMed</a></div>
+          </article>
+
+          <article class="paper">
+            <h3>インターフェロンα</h3>
+            <p class="citation">Ishida K, Kaneki M, Ohira C, Fukuyama T. <strong>Oral interferon alpha treatment significantly reduces halitosis and <em>Porphyromonas gulae</em> growth in dogs with periodontal disease.</strong> <em>The Veterinary Journal</em>. 2026;106613.</p>
+            <p>インターフェロンαを用い、犬の歯周病に伴う口臭や歯周病菌活性への影響を調べた研究です。</p>
+            <div class="links"><a href="https://doi.org/10.1016/j.tvjl.2026.106613">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/41748062/">PubMed</a></div>
+          </article>
+
+          <article class="paper">
+            <h3>犬歯周病の疫学研究</h3>
+            <p class="citation">Shirahata S, Iwashita N, Sasaki R, Nomura R, Murakami M, Yasuda J, Yasuda H, Nakajima K, Inaba H, Matsumoto-Nakano M, Nakano K, Uchiyama J, Fukuyama T. <strong>Possible association of <em>fimA</em> genotype of <em>Porphyromonas gulae</em> with the severity of periodontal disease and the number of permanent teeth in dogs.</strong> <em>Frontiers in Veterinary Science</em>. 2023;10:1022838.</p>
+            <p><em>P. gulae</em> の <em>fimA</em> 遺伝子型と犬の歯周病重症度、永久歯数との関連を調べた研究です。</p>
+            <div class="links"><a href="https://doi.org/10.3389/fvets.2023.1022838">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/36814464/">PubMed</a></div>
+          </article>
+
+          <article class="paper">
+            <h3>小型犬における歯周病の進行</h3>
+            <p class="citation">Yasuda J, Yasuda H, Nomura R, Matayoshi S, Inaba H, Gongora E, Iwashita N, Shirahata S, Kaji N, Akitomo T, Mitsuhata C, Uchiyama J, Fukuyama T, Matsumoto-Nakano M, Nakano K, Murakami M. <strong>Investigation of periodontal disease development and <em>Porphyromonas gulae</em> FimA genotype distribution in small dogs.</strong> <em>Scientific Reports</em>. 2024;14:5360.</p>
+            <p>小型犬665頭を対象に、歯周病の進行と <em>P. gulae</em> FimA 遺伝子型分布を調べた研究です。</p>
+            <div class="links"><a href="https://doi.org/10.1038/s41598-024-55842-8">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/38438471/">PubMed</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
